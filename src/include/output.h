@@ -13,8 +13,8 @@
 // unicode circle
 #define FIELD_CHAR "\u25CF"
 
-void print_status (Field winner);
+void print_winner (Field winner);
 void print_board (Field board[HEIGHT][WIDTH]);
-void print_field (Field* field);
+char* field_to_string (Field* field);
 
 #endif

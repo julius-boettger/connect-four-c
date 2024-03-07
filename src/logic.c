@@ -19,7 +19,8 @@ int run_game () {
     board[1][2] = PLAYER1;
 
     print_board(board);
-    print_status(check_winner(board));
+    const Field winner = check_winner(board);
+    if (winner != NO_PLAYER) print_winner(winner);
 
     return 0;
 }
