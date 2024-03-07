@@ -7,9 +7,14 @@ void print_status (Field winner) {
         printf("No one has won yet...\n");
         return;
     }
-    printf("Player %d (", winner);
     print_field(&winner);
-    printf(") has won!\n");
+    print_field(&winner);
+    print_field(&winner);
+    printf(" Player %d has won! ", winner);
+    print_field(&winner);
+    print_field(&winner);
+    print_field(&winner);
+    printf("\n");
 }
 
 void print_board (Field board[HEIGHT][WIDTH]) {
