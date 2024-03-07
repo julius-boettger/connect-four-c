@@ -5,6 +5,9 @@
 
 // return game exit status code
 int run_game () {
+    // init game
+    Field winner;
+    Field current_player = PLAYER1;
     Field board[HEIGHT][WIDTH];
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
@@ -12,13 +15,27 @@ int run_game () {
         }
     }
 
-    Field current_player = PLAYER1;
+    // make moves
+    place_token(board, &current_player, 0);
+
+    // print stuff
     print_prompt(&current_player);
     print_board(board);
-    const Field winner = check_winner(board);
+    winner = check_winner(board);
     if (winner != NO_PLAYER) print_winner(winner);
 
     return 0;
+}
+
+// assumes column exists, counts from 0 and has a free space
+void place_token(Field board[HEIGHT][WIDTH], Field* player, int column) {
+    // rows: bottom to top
+    for (int i = HEIGHT-1; i >= 0; i--) {
+        if (board[i][column] == NO_PLAYER) {
+            board[i][column] = *player;
+            return;
+        }
+    }
 }
 
 // return NO_PLAYER if there is no winner
