@@ -1,6 +1,20 @@
 #include "include/output.h"
 #include <stdio.h>
 
+void print_prompt (Field* current_player) {
+    char* symbol = field_to_string(current_player);
+    printf(
+        "%s%s%s Player %d, make your move! %s%s%s\n",
+        symbol, symbol, symbol,
+        *current_player,
+        symbol, symbol, symbol
+    );
+    for (int i = 1; i <= WIDTH; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+}
+
 void print_winner (Field winner) {
     char* string = field_to_string(&winner);
     printf(

@@ -12,12 +12,8 @@ int run_game () {
         }
     }
 
-    board[5][6] = PLAYER2;
-    board[4][5] = PLAYER2;
-    board[3][4] = PLAYER2;
-    board[2][3] = PLAYER2;
-    board[1][2] = PLAYER1;
-
+    Field current_player = PLAYER1;
+    print_prompt(&current_player);
     print_board(board);
     const Field winner = check_winner(board);
     if (winner != NO_PLAYER) print_winner(winner);
