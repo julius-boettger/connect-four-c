@@ -16,9 +16,10 @@ int run_game () {
     board[4][5] = PLAYER2;
     board[3][4] = PLAYER2;
     board[2][3] = PLAYER2;
+    board[1][2] = PLAYER1;
 
     print_board(board);
-    printf("Player %d won!\n", check_winner(board));
+    print_status(check_winner(board));
 
     return 0;
 }

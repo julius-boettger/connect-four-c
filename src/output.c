@@ -1,6 +1,17 @@
 #include "include/output.h"
 #include <stdio.h>
 
+// winner can be NO_PLAYER (meaning no one has won yet)
+void print_status (Field winner) {
+    if (winner == NO_PLAYER) {
+        printf("No one has won yet...\n");
+        return;
+    }
+    printf("Player %d (", winner);
+    print_field(&winner);
+    printf(") has won!\n");
+}
+
 void print_board (Field board[HEIGHT][WIDTH]) {
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
@@ -12,22 +23,15 @@ void print_board (Field board[HEIGHT][WIDTH]) {
 }
 
 void print_field (Field* field) {
-    // ansi color codes
-    #define RESET  "\x1B[0m"
-    #define RED    "\x1B[31m"
-    #define YELLOW "\x1B[33m"
-    // unicode circle
-    #define CIRCLE "\u25CF"
-
     switch (*field) {
         case NO_PLAYER:
-            printf(CIRCLE);
+            printf(FIELD_CHAR);
             break;
         case PLAYER1:
-            printf("%s%s%s", YELLOW, CIRCLE, RESET);
+            printf("%s%s%s", ANSI_PLAYER1, FIELD_CHAR, ANSI_RESET);
             break;
         case PLAYER2:
-            printf("%s%s%s", RED, CIRCLE, RESET);
+            printf("%s%s%s", ANSI_PLAYER2, FIELD_CHAR, ANSI_RESET);
             break;
         default:
             printf(" ");
