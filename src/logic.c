@@ -10,6 +10,9 @@ int run_game () {
         }
     }
 
+    board[5][0] = PLAYER1;
+    board[5][1] = PLAYER2;
+
     print_board(board);
 
     return 0;
