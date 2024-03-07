@@ -1,4 +1,5 @@
 #include "include/logic.h"
+#include "include/input.h"
 #include "include/output.h"
 
 #include <stdio.h>
@@ -6,7 +7,7 @@
 // return game exit status code
 int run_game () {
     // init game
-    Field winner;
+    Field winner = NO_PLAYER;
     Field current_player = PLAYER1;
     Field board[HEIGHT][WIDTH];
     for (int i = 0; i < HEIGHT; i++) {
@@ -15,20 +16,25 @@ int run_game () {
         }
     }
 
-    // make moves
-    place_token(board, &current_player, 0);
-
-    // print stuff
-    print_prompt(&current_player);
-    print_board(board);
-    winner = check_winner(board);
-    if (winner != NO_PLAYER) print_winner(winner);
+    // game loop
+    while (winner == NO_PLAYER) {
+        // print stuff
+        print_prompt(&current_player);
+        print_board(board);
+        winner = check_winner(board);
+        print_winner(winner);
+        // prompt input and make move
+        int column = prompt_column();
+        place_token(board, &current_player, column);
+        // switch player
+        current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
+    }
 
     return 0;
 }
 
 // assumes column exists, counts from 0 and has a free space
-void place_token(Field board[HEIGHT][WIDTH], Field* player, int column) {
+void place_token (Field board[HEIGHT][WIDTH], Field* player, int column) {
     // rows: bottom to top
     for (int i = HEIGHT-1; i >= 0; i--) {
         if (board[i][column] == NO_PLAYER) {

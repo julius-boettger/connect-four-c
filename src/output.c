@@ -9,6 +9,7 @@ void print_prompt (Field* current_player) {
         *current_player,
         symbol, symbol, symbol
     );
+    printf("Enter one of the following column numbers:\n");
     for (int i = 1; i <= WIDTH; i++) {
         printf("%d ", i);
     }
