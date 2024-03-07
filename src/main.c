@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include "include/logic.h"
 
 int main () {
-    printf("connect four!\n");
-    return 0;
+    return run_game();
 }
