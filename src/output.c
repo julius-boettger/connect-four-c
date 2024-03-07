@@ -20,7 +20,7 @@ void print_field (Field* field) {
     #define CIRCLE "\u25CF"
 
     switch (*field) {
-        case EMPTY:
+        case NO_PLAYER:
             printf(CIRCLE);
             break;
         case PLAYER1:

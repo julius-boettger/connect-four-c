@@ -8,7 +8,7 @@ int run_game () {
     Field board[HEIGHT][WIDTH];
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
-            board[i][j] = EMPTY;
+            board[i][j] = NO_PLAYER;
         }
     }
 
@@ -23,7 +23,7 @@ int run_game () {
     return 0;
 }
 
-// return -1 if there is no winner
+// return NO_PLAYER if there is no winner
 Field check_winner (Field board[HEIGHT][WIDTH]) {
     const Field diagonal_winner = check_diagonals_winner(board);
     if (diagonal_winner != -1) {
@@ -37,11 +37,10 @@ Field check_winner (Field board[HEIGHT][WIDTH]) {
     if (column_winner != -1) {
         return column_winner;
     }
-    // no winner
-    return -1;
+    return NO_PLAYER;
 }
 
-// return -1 if there is no winner
+// return NO_PLAYER if there is no winner
 Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
     // rows: bottom to top
     for (int i = HEIGHT; i >= 0; i--) {
@@ -49,7 +48,7 @@ Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
         int fields_in_a_row = 1;
         // columns: left to right
         for (int j = 1; j < WIDTH; j++) {
-            if (board[i][j] == EMPTY || board[i][j-1] != board[i][j]) {
+            if (board[i][j] == NO_PLAYER || board[i][j-1] != board[i][j]) {
                 fields_in_a_row = 1;
                 continue;
             } 
@@ -58,11 +57,10 @@ Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
             }
         }
     }
-    // no winner
-    return -1;
+    return NO_PLAYER;
 }
 
-// return -1 if there is no winner
+// return NO_PLAYER if there is no winner
 Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
     // columns: left to right
     for (int j = 0; j < WIDTH; j++) {
@@ -70,7 +68,7 @@ Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
         int fields_in_a_row = 1;
         // rows: bottom to top
         for (int i = HEIGHT-1; i >= 0; i--) {
-            if (board[i][j] == EMPTY || board[i+1][j] != board[i][j]) {
+            if (board[i][j] == NO_PLAYER || board[i+1][j] != board[i][j]) {
                 fields_in_a_row = 1;
                 continue;
             } 
@@ -79,11 +77,10 @@ Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
             }
         }
     }
-    // no winner
-    return -1;
+    return NO_PLAYER;
 }
 
-// return -1 if there is no winner
+// return NO_PLAYER if there is no winner
 Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
     //// diagonals from bottom left to top right
     // columns: left to right
@@ -94,7 +91,7 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
             int fields_in_a_row = 1;
             // bottom left to top right
             for (int k = 1; i-k >= 0 && j+k < WIDTH; k++) {
-                if (board[i-k][j+k] == EMPTY || board[i-k+1][j+k-1] != board[i-k][j+k]) {
+                if (board[i-k][j+k] == NO_PLAYER || board[i-k+1][j+k-1] != board[i-k][j+k]) {
                     fields_in_a_row = 1;
                     continue;
                 }
@@ -114,7 +111,7 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
             int fields_in_a_row = 1;
             // bottom right to top left
             for (int k = 1; i-k >= 0 && j-k >= 0; k++) {
-                if (board[i-k][j-k] == EMPTY || board[i-k+1][j-k+1] != board[i-k][j-k]) {
+                if (board[i-k][j-k] == NO_PLAYER || board[i-k+1][j-k+1] != board[i-k][j-k]) {
                     fields_in_a_row = 1;
                     continue;
                 }
@@ -124,7 +121,6 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
             }
         }
     }
-    
-    // no winner
-    return -1;
+
+    return NO_PLAYER;
 }
