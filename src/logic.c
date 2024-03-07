@@ -41,7 +41,7 @@ Field check_winner (Field board[HEIGHT][WIDTH]) {
 // return NO_PLAYER if there is no winner
 Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
     // rows: bottom to top
-    for (int i = HEIGHT; i >= 0; i--) {
+    for (int i = HEIGHT-1; i >= 0; i--) {
         // start with one for first field
         int fields_in_a_row = 1;
         // columns: left to right
@@ -84,7 +84,7 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
     // columns: left to right
     for (int j = 0; j < WIDTH-(CONNECT-1); j++) {
         // rows: bottom to top
-        for (int i = HEIGHT; i >= HEIGHT-(CONNECT-1); i--) {
+        for (int i = HEIGHT-1; i >= HEIGHT-(CONNECT-1); i--) {
             // start with one for first field
             int fields_in_a_row = 1;
             // bottom left to top right
@@ -102,9 +102,9 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
 
     //// diagonals from bottom right to top left
     // columns: right to left
-    for (int j = WIDTH; j >= CONNECT-1; j--) {
+    for (int j = WIDTH-1; j >= CONNECT-1; j--) {
         // rows: bottom to top
-        for (int i = HEIGHT; i >= HEIGHT-(CONNECT-1); i--) {
+        for (int i = HEIGHT-1; i >= HEIGHT-(CONNECT-1); i--) {
             // start with one for first field
             int fields_in_a_row = 1;
             // bottom right to top left
