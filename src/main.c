@@ -1,4 +1,4 @@
-#include "include/logic.h"
+#include "include/main.h"
 
 int main () {
     return run_game();
