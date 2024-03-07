@@ -13,8 +13,8 @@ void print_board (Field board[HEIGHT][WIDTH]) {
 
 void print_field (Field* field) {
     // ansi color codes
-    #define RESET "\x1B[0m"
-    #define RED "\x1B[31m"
+    #define RESET  "\x1B[0m"
+    #define RED    "\x1B[31m"
     #define YELLOW "\x1B[33m"
     // unicode circle
     #define CIRCLE "\u25CF"
