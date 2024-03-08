@@ -1,5 +1,6 @@
 #include "include/input.h"
 
+#include "include/logic.h"
 #include <stdio.h>
 
 // return int in given range (borders inclusive).
