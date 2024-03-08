@@ -47,15 +47,15 @@ void place_token (Field board[HEIGHT][WIDTH], Field* player, int column) {
 // return NO_PLAYER if there is no winner
 Field check_winner (Field board[HEIGHT][WIDTH]) {
     const Field diagonal_winner = check_diagonals_winner(board);
-    if (diagonal_winner != -1) {
+    if (diagonal_winner != NO_PLAYER) {
         return diagonal_winner;
     }
     const Field row_winner = check_rows_winner(board);
-    if (row_winner != -1) {
+    if (row_winner != NO_PLAYER) {
         return row_winner;
     }
     const Field column_winner = check_columns_winner(board);
-    if (column_winner != -1) {
+    if (column_winner != NO_PLAYER) {
         return column_winner;
     }
     return NO_PLAYER;
