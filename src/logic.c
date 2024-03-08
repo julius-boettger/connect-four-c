@@ -17,17 +17,25 @@ int run_game () {
     }
 
     // game loop
-    while (winner == NO_PLAYER) {
-        // print stuff
-        print_prompt(&current_player);
+    while (true) {
         print_board(board);
+        // check board
         winner = check_winner(board);
-        print_winner(winner);
+        if (winner != NO_PLAYER) {
+            print_winner(winner);
+            break;
+        }
+        if (is_draw(board)) {
+            printf("It's a draw!\n");
+            break;
+        }
+        // switch player
+        current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
+        // print input prompt
+        print_prompt(&current_player);
         // prompt input and make move
         int column = prompt_int(1, WIDTH) - 1;
         place_token(board, &current_player, column);
-        // switch player
-        current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
     }
 
     return 0;
@@ -42,6 +50,21 @@ void place_token (Field board[HEIGHT][WIDTH], Field* player, int column) {
             return;
         }
     }
+}
+
+bool is_draw (Field board[HEIGHT][WIDTH]) {
+    // columns: left to right
+    for (int j = 0; j < WIDTH; j++) {
+        if (!column_is_full(board, j)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// column counts from 0
+bool column_is_full (Field board[HEIGHT][WIDTH], int column) {
+    return board[0][column] != NO_PLAYER;
 }
 
 // return NO_PLAYER if there is no winner

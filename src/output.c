@@ -2,6 +2,12 @@
 #include <stdio.h>
 
 void print_prompt (Field* current_player) {
+    // print column numbers
+    for (int i = 1; i <= WIDTH; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+    // print player
     char* symbol = field_to_string(current_player);
     printf(
         "%s%s%s Player %d, make your move! %s%s%s\n",
@@ -9,11 +15,8 @@ void print_prompt (Field* current_player) {
         *current_player,
         symbol, symbol, symbol
     );
-    printf("Enter one of the following column numbers:\n");
-    for (int i = 1; i <= WIDTH; i++) {
-        printf("%d ", i);
-    }
-    printf("\n");
+    // print instruction
+    printf("Enter one of the column numbers above: ");
 }
 
 void print_winner (Field winner) {
