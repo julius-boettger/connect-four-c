@@ -1,10 +1,16 @@
 #include "include/output.h"
+#include "include/logic.h"
 #include <stdio.h>
 
-void print_prompt (Field* current_player) {
+void print_prompt (Field board[HEIGHT][WIDTH], Field* current_player) {
     // print column numbers
     for (int i = 1; i <= WIDTH; i++) {
-        printf("%d ", i);
+        if (column_is_full(board, i - 1)) {
+            printf(" ");
+        } else {
+            printf("%d", i);
+        }
+        printf(" ");
     }
     printf("\n");
     // print player

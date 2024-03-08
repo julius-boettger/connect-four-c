@@ -18,3 +18,13 @@ int prompt_int (int min, int max) {
     }
     return num;
 }
+
+// returns non-full column counting from 0
+int prompt_valid_column (Field board[HEIGHT][WIDTH], int min, int max) {
+    int column = prompt_int(min, max) - 1;
+    if (column_is_full(board, column)) {
+        printf("That column is already full! Try again: ");
+        return prompt_valid_column(board, min, max);
+    }
+    return column;
+}

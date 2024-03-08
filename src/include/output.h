@@ -18,7 +18,7 @@
     #define FIELD_CHAR "\u25CF"
 #endif
 
-void print_prompt (Field* current_player);
+void print_prompt (Field board[HEIGHT][WIDTH], Field* current_player);
 void print_winner (Field winner);
 void print_board (Field board[HEIGHT][WIDTH]);
 char* field_to_string (Field* field);

@@ -35,9 +35,9 @@ int run_game () {
         // switch player
         current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
         // print input prompt
-        print_prompt(&current_player);
+        print_prompt(board, &current_player);
         // prompt input and make move
-        int column = prompt_int(1, WIDTH) - 1;
+        int column = prompt_valid_column(board, 1, WIDTH);
         place_token(board, &current_player, column);
     }
 
