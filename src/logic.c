@@ -24,7 +24,7 @@ int run_game () {
         winner = check_winner(board);
         print_winner(winner);
         // prompt input and make move
-        int column = prompt_column();
+        int column = prompt_int(1, WIDTH) - 1;
         place_token(board, &current_player, column);
         // switch player
         current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
