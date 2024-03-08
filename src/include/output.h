@@ -10,8 +10,13 @@
 // red
 #define ANSI_PLAYER2 "\x1B[31m"
 
-// unicode circle
-#define FIELD_CHAR "\u25CF"
+// unicode circle doesn't work on windows,
+// so don't use it there
+#ifdef _WIN32
+    #define FIELD_CHAR "o"
+#else
+    #define FIELD_CHAR "\u25CF"
+#endif
 
 void print_prompt (Field* current_player);
 void print_winner (Field winner);

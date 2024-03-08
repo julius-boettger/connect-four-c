@@ -8,7 +8,7 @@
 int run_game () {
     // init game
     Field winner = NO_PLAYER;
-    Field current_player = PLAYER1;
+    Field current_player = PLAYER2;
     Field board[HEIGHT][WIDTH];
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
@@ -18,6 +18,9 @@ int run_game () {
 
     // game loop
     while (true) {
+        // clear console (seems to work on linux and windows 10...?)
+        printf("\e[1;1H\e[2J");
+
         print_board(board);
         // check board
         winner = check_winner(board);
