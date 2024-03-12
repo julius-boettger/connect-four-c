@@ -4,58 +4,12 @@
 
 #include <stdio.h>
 
-// return game exit status code
-int run_game () {
-    // init game
-    Field winner = NO_PLAYER;
-    Field current_player = PLAYER2;
-    Field board[HEIGHT][WIDTH];
-    for (int i = 0; i < HEIGHT; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            board[i][j] = NO_PLAYER;
-        }
-    }
-
-    // game loop
-    while (true) {
-        // clear console (seems to work on linux and windows 10...?)
-        printf("\e[1;1H\e[2J");
-
-        print_board(board);
-        // check board
-        winner = check_winner(board);
-        if (winner != NO_PLAYER) {
-            print_winner(winner);
-            break;
-        }
-        if (is_draw(board)) {
-            printf("It's a draw!\n");
-            break;
-        }
-        // switch player
-        current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
-        // print input prompt
-        print_prompt(board, &current_player);
-        // prompt input and make move
-        int column = prompt_valid_column(board, 1, WIDTH);
-        place_token(board, &current_player, column);
-    }
-
-    return 0;
+// column counts from 0
+bool column_is_full (Field board[HEIGHT][WIDTH], int column) {
+    return board[0][column] != NO_PLAYER;
 }
 
-// assumes column exists, counts from 0 and has a free space
-void place_token (Field board[HEIGHT][WIDTH], Field* player, int column) {
-    // rows: bottom to top
-    for (int i = HEIGHT-1; i >= 0; i--) {
-        if (board[i][column] == NO_PLAYER) {
-            board[i][column] = *player;
-            return;
-        }
-    }
-}
-
-bool is_draw (Field board[HEIGHT][WIDTH]) {
+static bool is_draw (Field board[HEIGHT][WIDTH]) {
     // columns: left to right
     for (int j = 0; j < WIDTH; j++) {
         if (!column_is_full(board, j)) {
@@ -65,30 +19,20 @@ bool is_draw (Field board[HEIGHT][WIDTH]) {
     return true;
 }
 
-// column counts from 0
-bool column_is_full (Field board[HEIGHT][WIDTH], int column) {
-    return board[0][column] != NO_PLAYER;
+
+// assumes column exists, counts from 0 and has a free space
+static void place_token (Field board[HEIGHT][WIDTH], Field* player, int column) {
+    // rows: bottom to top
+    for (int i = HEIGHT-1; i >= 0; i--) {
+        if (board[i][column] == NO_PLAYER) {
+            board[i][column] = *player;
+            return;
+        }
+    }
 }
 
 // return NO_PLAYER if there is no winner
-Field check_winner (Field board[HEIGHT][WIDTH]) {
-    const Field diagonal_winner = check_diagonals_winner(board);
-    if (diagonal_winner != NO_PLAYER) {
-        return diagonal_winner;
-    }
-    const Field row_winner = check_rows_winner(board);
-    if (row_winner != NO_PLAYER) {
-        return row_winner;
-    }
-    const Field column_winner = check_columns_winner(board);
-    if (column_winner != NO_PLAYER) {
-        return column_winner;
-    }
-    return NO_PLAYER;
-}
-
-// return NO_PLAYER if there is no winner
-Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
+static Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
     // rows: bottom to top
     for (int i = HEIGHT-1; i >= 0; i--) {
         // start with one for first field
@@ -108,7 +52,7 @@ Field check_rows_winner (Field board[HEIGHT][WIDTH]) {
 }
 
 // return NO_PLAYER if there is no winner
-Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
+static Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
     // columns: left to right
     for (int j = 0; j < WIDTH; j++) {
         // start with one for first field
@@ -128,7 +72,7 @@ Field check_columns_winner (Field board[HEIGHT][WIDTH]) {
 }
 
 // return NO_PLAYER if there is no winner
-Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
+static Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
     //// diagonals from bottom left to top right
     // columns: left to right
     for (int j = 0; j < WIDTH-(CONNECT-1); j++) {
@@ -170,4 +114,61 @@ Field check_diagonals_winner (Field board[HEIGHT][WIDTH]) {
     }
 
     return NO_PLAYER;
+}
+
+// return NO_PLAYER if there is no winner
+static Field check_winner (Field board[HEIGHT][WIDTH]) {
+    const Field diagonal_winner = check_diagonals_winner(board);
+    if (diagonal_winner != NO_PLAYER) {
+        return diagonal_winner;
+    }
+    const Field row_winner = check_rows_winner(board);
+    if (row_winner != NO_PLAYER) {
+        return row_winner;
+    }
+    const Field column_winner = check_columns_winner(board);
+    if (column_winner != NO_PLAYER) {
+        return column_winner;
+    }
+    return NO_PLAYER;
+}
+
+// return game exit status code
+int run_game () {
+    // init game
+    Field winner = NO_PLAYER;
+    Field current_player = PLAYER2;
+    Field board[HEIGHT][WIDTH];
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            board[i][j] = NO_PLAYER;
+        }
+    }
+
+    // game loop
+    while (true) {
+        // clear console (seems to work on linux and windows 10...?)
+        printf("\e[1;1H\e[2J");
+
+        print_board(board);
+        // check board
+        winner = check_winner(board);
+        if (winner != NO_PLAYER) {
+            print_winner(winner);
+            break;
+        }
+        if (is_draw(board)) {
+            printf("It's a draw!\n");
+            break;
+        }
+        // switch player
+        current_player = current_player == PLAYER1 ? PLAYER2 : PLAYER1;
+        // print input prompt
+        print_prompt(board, &current_player);
+        // prompt input and make move
+        int column = prompt_valid_column(board, 1, WIDTH);
+        place_token(board, &current_player, column);
+    }
+
+    return 0;
 }

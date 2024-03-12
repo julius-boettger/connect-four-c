@@ -5,7 +5,7 @@
 
 // return int in given range (borders inclusive).
 // returns -1 on error.
-int prompt_int (int min, int max) {
+static int prompt_int (int min, int max) {
     int num;
     if (scanf("%d", &num) == 0) {
         printf("That's not a number! Try again: ");
